@@ -7,18 +7,24 @@ type Program = Exp
 -- [TODO] Complete data Exp. 
 -- data Exp = 
 --       ... 
-data Exp = DummyExp
+data Exp = 
+    Const_Exp Int
+  | Diff_Exp Exp Exp
+  | IsZero_Exp Exp
+  | If_Exp Exp Exp Exp
+  | Var_Exp Identifier
+  | Let_Exp Identifier Exp Exp
   deriving Show
 
 type Identifier = String
 
-const_exp n = error "TODO: implement a const_exp function" 
-diff_exp e1 e2 = error "TODO: implement a diff_exp function"
+const_exp n = Const_Exp n
+diff_exp e1 e2 = Diff_Exp e1 e2
 
-iszero_exp e = error "TODO: implement a iszero_exp function" 
+iszero_exp e = IsZero_Exp e
 
-if_exp e1 e2 e3 = error "TODO: implement a if_exp function" 
+if_exp e1 e2 e3 = If_Exp e1 e2 e3
 
-var_exp s = error "TODO: implement a var_exp function" 
+var_exp s = Var_Exp s
 
-let_exp x e1 e2 = error "TODO: implement a let_exp function" 
+let_exp x e1 e2 = Let_Exp x e1 e2
