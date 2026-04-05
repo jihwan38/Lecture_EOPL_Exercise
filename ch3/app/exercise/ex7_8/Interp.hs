@@ -15,6 +15,21 @@ value_of (Diff_Exp exp1 exp2) env =
         val2 = value_of exp2 env
     in Num_Val (expval_num val1 - expval_num val2)
 
+value_of (Add_Exp exp1 exp2) env = 
+    let val1 = value_of exp1 env
+        val2 = value_of exp2 env
+    in Num_Val (expval_num val1 + expval_num val2)
+
+value_of (Mul_Exp exp1 exp2) env = 
+    let val1 = value_of exp1 env
+        val2 = value_of exp2 env
+    in Num_Val (expval_num val1 * expval_num val2)
+
+value_of (Quot_Exp exp1 exp2) env = 
+    let val1 = value_of exp1 env
+        val2 = value_of exp2 env
+    in Num_Val (quot (expval_num val1) (expval_num val2))
+
 value_of (Var_Exp s) env = 
     apply_env env s
 
@@ -22,6 +37,24 @@ value_of (IsZero_Exp exp) env =
     let val1 = value_of exp env
         num1 = expval_num val1
     in if num1 == 0 then Bool_Val True
+       else Bool_Val False
+
+value_of (IsEqual_Exp exp1 exp2) env = 
+    let val1 = value_of exp1 env
+        val2 = value_of exp2 env
+    in if expval_num val1 == expval_num val2 then Bool_Val True
+       else Bool_Val False
+
+value_of (IsGreater_Exp exp1 exp2) env =
+    let val1 = value_of exp1 env
+        val2 = value_of exp2 env
+    in if expval_num val1 > expval_num val2 then Bool_Val True
+       else Bool_Val False
+
+value_of (IsLess_Exp exp1 exp2) env =
+    let val1 = value_of exp1 env
+        val2 = value_of exp2 env
+    in if expval_num val1 < expval_num val2 then Bool_Val True
        else Bool_Val False
 
 value_of (If_Exp exp1 exp2 exp3) env = 
