@@ -29,8 +29,26 @@ parserSpec = ParserSpec
       rule "Expression -> - ( Expression , Expression )"
         (\rhs -> return $ diff_exp (get rhs 3) (get rhs 5)),
 
+      rule "Expression -> + ( Expression , Expression )"
+        (\rhs -> return $ add_exp (get rhs 3) (get rhs 5)),
+        
+      rule "Expression -> * ( Expression , Expression )"
+        (\rhs -> return $ mul_exp (get rhs 3) (get rhs 5)),
+        
+      rule "Expression -> / ( Expression , Expression )"
+        (\rhs -> return $ quot_exp (get rhs 3) (get rhs 5)),
+
       rule "Expression -> zero? ( Expression )"
         (\rhs -> return $ iszero_exp (get rhs 3)),
+
+      rule "Expression -> equal? ( Expression , Expression )"
+        (\rhs -> return $ isequal_exp (get rhs 3) (get rhs 5)),
+
+      rule "Expression -> greater? ( Expression , Expression )"
+        (\rhs -> return $ isgreater_exp (get rhs 3) (get rhs 5)),
+
+      rule "Expression -> less? ( Expression , Expression )"
+        (\rhs -> return $ isless_exp (get rhs 3) (get rhs 5)),
       
       rule "Expression -> if Expression then Expression else Expression"
         (\rhs -> return $ if_exp (get rhs 2) (get rhs 4) (get rhs 6)),
@@ -42,10 +60,10 @@ parserSpec = ParserSpec
     ],
     
     baseDir        = "./",
-    actionTblFile  = "action_table_letlang.txt",
-    gotoTblFile    = "goto_table_letlang.txt",
-    grammarFile    = "prod_rules_letlang.txt",
-    parserSpecFile = "mygrammar_letlang.grm",
+    actionTblFile  = "action_table_let7_8lang.txt",
+    gotoTblFile    = "goto_table_let7_8lang.txt",
+    grammarFile    = "prod_rules_let7_8lang.txt",
+    parserSpecFile = "mygrammar_let7_8lang.grm",
     genparserexe   = "yapb-exe"
   }
 
